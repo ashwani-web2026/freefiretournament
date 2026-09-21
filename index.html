@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEZ Free Fire MAX India Cup 2026 — Fall (FFMIC 2026)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Orbitron & Rajdhani for esports cyberpunk typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#080b11',
+                            card: '#0d121d',
+                            border: '#1a2333',
+                            neon: '#00ff66',
+                            cyan: '#00f0ff',
+                            purple: '#a855f7',
+                            gold: '#fbbf24',
+                            dark: '#05070a'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'neon-green': '0 0 20px rgba(0, 255, 102, 0.35)',
+                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.35)',
+                        'neon-gold': '0 0 20px rgba(251, 191, 36, 0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080b11;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a2333;
+            border-radius: 4px;
+            border: 1px solid #00f0ff;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff66;
+        }
+
+        /* Scanline Overlay Effect */
+        .scanline {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Glitch animation text */
+        .glitch-text {
+            text-shadow: 2px 2px 0px #00f0ff, -2px -2px 0px #00ff66;
+        }
+
+        /* Card Glow effect on Hover */
+        .cyber-card {
+            background: rgba(13, 18, 29, 0.85);
+            border: 1px solid rgba(26, 35, 51, 0.8);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cyber-card:hover {
+            border-color: rgba(0, 255, 102, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 255, 102, 0.15);
+        }
+
+        /* Clip path for angled cyber buttons */
+        .cyber-btn {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.2s ease-in-out;
+        }
+        .cyber-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .clip-tag {
+            clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+        }
+
+        /* Ambient background glow */
+        .glow-bg-cyan {
+            background: radial-gradient(circle, rgba(0,240,255,0.12) 0%, rgba(8,11,17,0) 70%);
+        }
+        .glow-bg-green {
+            background: radial-gradient(circle, rgba(0,255,102,0.12) 0%, rgba(8,11,17,0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-gray-200 font-sans selection:bg-cyber-neon selection:text-black overflow-x-hidden relative">
+
+    <!-- Interactive Background Particle Canvas -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    
+    <!-- Ambient Light Gradients -->
+    <div class="fixed top-0 left-1/4 w-[600px] h-[600px] glow-bg-cyan pointer-events-none z-0"></div>
+    <div class="fixed bottom-1/3 right-10 w-[700px] h-[700px] glow-bg-green pointer-events-none z-0"></div>
+
+    <!-- MAIN NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-cyber-bg/90 backdrop-blur-md border-b border-cyber-border/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Tournament Logo Brand -->
+            <a href="#home" class="flex items-center gap-3 group" onclick="playAudio('click')">
+                <div class="w-11 h-11 bg-gradient-to-br from-cyber-neon to-cyber-cyan p-0.5 rounded-lg transform rotate-3 group-hover:rotate-0 transition-transform">
+                    <div class="w-full h-full bg-cyber-bg rounded-[7px] flex items-center justify-center font-orbitron font-black text-cyber-neon text-xl">
+                        FF
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-orbitron font-bold text-lg text-white tracking-wider">TEZ FFMIC</span>
+                        <span class="text-xs bg-cyber-neon/20 text-cyber-neon px-2 py-0.5 rounded border border-cyber-neon/30 font-mono">2026</span>
+                    </div>
+                    <p class="text-[10px] text-gray-400 font-rajdhani font-semibold tracking-widest uppercase">Free Fire MAX India Cup • Fall</p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-1 font-rajdhani font-bold text-base tracking-wider uppercase">
+                <a href="#home" class="px-3 py-2 text-cyber-neon hover:text-cyber-cyan transition-colors">Home</a>
+                <a href="#overview" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">Format</a>
+                <a href="#teams" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">Teams</a>
+                <a href="#schedule" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">Schedule</a>
+                <a href="#leaderboard" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">Standings</a>
+                <a href="#prizes" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">Prizes</a>
+                <a href="#live" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors flex items-center gap-1.5">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                    Live Hub
+                </a>
+                <a href="#news" class="px-3 py-2 text-gray-300 hover:text-cyber-neon transition-colors">News</a>
+            </nav>
+
+            <!-- Audio Toggle & Registration CTA -->
+            <div class="hidden sm:flex items-center gap-4">
+                <!-- Sound Effect Switch -->
+                <button id="soundToggle" onclick="toggleAudio()" class="p-2.5 bg-cyber-card border border-cyber-border rounded-lg text-gray-400 hover:text-cyber-cyan hover:border-cyber-cyan/50 transition-all text-sm" title="Toggle SFX">
+                    <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <a href="#register" onclick="playAudio('click')" class="cyber-btn bg-gradient-to-r from-cyber-neon to-cyber-cyan text-cyber-dark font-orbitron font-extrabold px-5 py-2.5 text-sm uppercase tracking-wider hover:brightness-110 shadow-neon-green">
+                    Register Cup
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="lg:hidden p-2 text-gray-300 hover:text-cyber-neon focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobileDrawer" class="hidden lg:hidden bg-cyber-card border-b border-cyber-border px-4 pt-2 pb-6 space-y-3 font-rajdhani font-semibold tracking-wider text-lg">
+            <a href="#home" class="mobile-link block text-cyber-neon py-1">Home</a>
+            <a href="#overview" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Format</a>
+            <a href="#teams" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Teams</a>
+            <a href="#schedule" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Schedule</a>
+            <a href="#leaderboard" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Standings</a>
+            <a href="#prizes" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Prizes</a>
+            <a href="#live" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">Live Hub</a>
+            <a href="#news" class="mobile-link block text-gray-300 hover:text-cyber-neon py-1">News</a>
+            <a href="#register" class="mobile-link block text-cyber-cyan py-1 font-orbitron">Community Register</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                
+                <!-- Status Tag Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-card/90 border border-cyber-neon/40 shadow-neon-green mb-6 text-xs sm:text-sm font-rajdhani font-bold tracking-widest uppercase">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-neon opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-neon"></span>
+                    </span>
+                    <span class="text-cyber-neon">GRAND FINALS APPROACHING</span>
+                    <span class="text-gray-500">|</span>
+                    <span class="text-cyber-cyan">SEPTEMBER 26–27, 2026</span>
+                </div>
+
+                <!-- Main Glitch Esports Title -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-orbitron font-black text-white tracking-tight leading-none mb-4 uppercase">
+                    TEZ FREE FIRE MAX <br class="hidden sm:inline"/>
+                    <span class="bg-gradient-to-r from-cyber-neon via-cyber-cyan to-white bg-clip-text text-transparent glitch-text">INDIA CUP 2026</span>
+                </h1>
+
+                <!-- Tournament Tagline & Slogan -->
+                <p class="font-rajdhani text-xl sm:text-2xl text-gray-300 font-semibold tracking-wider uppercase mb-8">
+                    Theme: <span class="text-cyber-neon font-extrabold italic">“FORGE YOUR LEGACY”</span> &bull; OFFICIAL BATTLE ROYALE
+                </p>
+
+                <!-- Key Meta Specs Row -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mb-10 font-rajdhani">
+                    <div class="cyber-card p-3 rounded-lg border-l-2 border-l-cyber-neon">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Prize Pool</p>
+                        <p class="text-xl font-orbitron font-bold text-cyber-gold">₹1 CRORE</p>
+                    </div>
+                    <div class="cyber-card p-3 rounded-lg border-l-2 border-l-cyber-cyan">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Finalists</p>
+                        <p class="text-xl font-orbitron font-bold text-white">12 SQUADS</p>
+                    </div>
+                    <div class="cyber-card p-3 rounded-lg border-l-2 border-l-cyber-purple">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Organizer</p>
+                        <p class="text-xl font-orbitron font-bold text-cyber-neon">GARENA</p>
+                    </div>
+                    <div class="cyber-card p-3 rounded-lg border-l-2 border-l-cyber-gold">
+                        <p class="text-xs text-gray-400 uppercase tracking-widest">Grand Finals</p>
+                        <p class="text-xl font-orbitron font-bold text-cyber-cyan">NOIDA ARENA</p>
+                    </div>
+                </div>
+
+                <!-- COUNTDOWN TIMER CONTAINER -->
+                <div class="cyber-card p-6 rounded-2xl max-w-2xl mx-auto border border-cyber-cyan/30 shadow-neon-cyan mb-10">
+                    <h3 class="text-xs font-orbitron uppercase text-cyber-cyan tracking-widest mb-4">
+                        <i class="fa-solid fa-clock mr-1.5"></i> Grand Finals Day 1 Countdown (Noida Indoor Stadium)
+                    </h3>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4 font-orbitron text-center">
+                        <div class="bg-cyber-dark/80 p-3 rounded-lg border border-cyber-border">
+                            <span id="timerDays" class="text-2xl sm:text-4xl font-black text-cyber-neon">06</span>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-sans uppercase mt-1">Days</p>
+                        </div>
+                        <div class="bg-cyber-dark/80 p-3 rounded-lg border border-cyber-border">
+                            <span id="timerHours" class="text-2xl sm:text-4xl font-black text-cyber-cyan">18</span>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-sans uppercase mt-1">Hours</p>
+                        </div>
+                        <div class="bg-cyber-dark/80 p-3 rounded-lg border border-cyber-border">
+                            <span id="timerMins" class="text-2xl sm:text-4xl font-black text-white">42</span>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-sans uppercase mt-1">Mins</p>
+                        </div>
+                        <div class="bg-cyber-dark/80 p-3 rounded-lg border border-cyber-border">
+                            <span id="timerSecs" class="text-2xl sm:text-4xl font-black text-cyber-gold">15</span>
+                            <p class="text-[10px] sm:text-xs text-gray-400 font-sans uppercase mt-1">Secs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="#live" onclick="playAudio('click')" class="cyber-btn bg-cyber-neon text-cyber-dark font-orbitron font-bold px-8 py-4 text-sm sm:text-base uppercase tracking-wider hover:shadow-neon-green flex items-center gap-2">
+                        <i class="fa-solid fa-play"></i> Watch Stream
+                    </a>
+                    <a href="#schedule" onclick="playAudio('click')" class="cyber-btn bg-cyber-card border border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan/10 font-orbitron font-bold px-8 py-4 text-sm sm:text-base uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days"></i> Match Schedule
+                    </a>
+                    <a href="#teams" onclick="playAudio('click')" class="cyber-btn bg-cyber-card border border-cyber-border text-gray-300 hover:text-white hover:border-gray-500 font-orbitron font-bold px-8 py-4 text-sm sm:text-base uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-users"></i> View 12 Finalists
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW & FORMAT SECTION -->
+    <section id="overview" class="py-16 bg-cyber-card/40 border-y border-cyber-border/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-cyber-cyan font-rajdhani font-bold text-sm tracking-widest uppercase">Official Competition Rules</span>
+                <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                    Tournament <span class="text-cyber-neon">Format</span> & Breakdown
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyber-neon to-cyber-cyan mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Format Interactive Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                
+                <!-- Stage 1 -->
+                <div class="cyber-card p-6 rounded-xl relative overflow-hidden group">
+                    <div class="text-cyber-cyan font-orbitron text-3xl font-black mb-2 opacity-50 group-hover:opacity-100 transition-opacity">01</div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Qualifiers</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed font-sans">
+                        August 28 – September 06<br/>
+                        Open regional qualifiers with over 10,000 community squads battling across India.
+                    </p>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="cyber-card p-6 rounded-xl relative overflow-hidden group">
+                    <div class="text-cyber-cyan font-orbitron text-3xl font-black mb-2 opacity-50 group-hover:opacity-100 transition-opacity">02</div>
+                    <h3 class="font-orbitron font-bold text-lg text-white mb-2">Group Stage</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed font-sans">
+                        September 11 – September 20<br/>
+                        Top 24 qualified teams split into groups. Survival and eliminations decide the top 12 squads.
+                    </p>
+                </div>
+
+                <!-- Stage 3 - Points Rush Highlight -->
+                <div class="cyber-card p-6 rounded-xl border border-cyber-neon/60 bg-cyber-card relative overflow-hidden group shadow-neon-green">
+                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-cyber-neon/10 rounded-full blur-lg"></div>
+                    <div class="text-cyber-neon font-orbitron text-3xl font-black mb-2">03</div>
+                    <h3 class="font-orbitron font-bold text-lg text-cyber-neon mb-2">Points Rush</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed font-sans">
+                        September 24 – September 25<br/>
+                        Finalists fight in intense matches to earn critical head-start bonus points for the Grand Finals!
+                    </p>
+                </div>
+
+                <!-- Stage 4 - Champion Rush Highlight -->
+                <div class="cyber-card p-6 rounded-xl border border-cyber-gold/60 bg-cyber-card relative overflow-hidden group shadow-neon-gold">
+                    <div class="text-cyber-gold font-orbitron text-3xl font-black mb-2">04</div>
+                    <h3 class="font-orbitron font-bold text-lg text-cyber-gold mb-2">Champion Rush</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed font-sans">
+                        September 26 – September 27<br/>
+                        Noida Indoor Stadium.Head-start points carry over! The ultimate team lifts the ₹40 Lakh trophy.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Deep Dive Format Feature Banner -->
+            <div class="cyber-card p-8 rounded-2xl border-l-4 border-l-cyber-neon flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-3 max-w-2xl">
+                    <span class="px-3 py-1 bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 text-xs font-mono rounded">SPECIAL FORMAT HIGHLIGHT</span>
+                    <h3 class="text-2xl font-orbitron font-bold text-white">Points Rush &rarr; Champion Rush System</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        In the Grand Finals phase at Noida Indoor Stadium, teams first compete in the **Points Rush** stage. Performance here grants tier-based head-start points. In the **Champion Rush** stage, every elimination point and Booyah counts on top of head-start points to decide the FFMIC 2026 Champion!
+                    </p>
+                </div>
+                <div class="flex-shrink-0 text-center">
+                    <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                        <p class="text-xs text-gray-400 font-orbitron mb-1">TOTAL PRIZE POOL</p>
+                        <p class="text-3xl font-orbitron font-black text-cyber-gold">₹10,000,000</p>
+                        <p class="text-[10px] text-cyber-cyan font-mono mt-1">SPONSORED BY TEZ & GARENA</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TEAMS SECTION (12 FINALISTS) -->
+    <section id="teams" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header & Filters -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <span class="text-cyber-neon font-rajdhani font-bold text-sm tracking-widest uppercase">Elite Contenders</span>
+                    <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                        12 Grand <span class="text-cyber-cyan">Finalists</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-2">Qualified squads fighting at Noida Indoor Stadium on Sept 26–27</p>
+                </div>
+
+                <!-- Team Search Input -->
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                    <input type="text" id="teamSearchInput" placeholder="Search team or player..." class="w-full bg-cyber-dark border border-cyber-border rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors" onkeyup="filterTeams()">
+                </div>
+            </div>
+          
+               <!-- Teams Grid -->
+            <div id="teamsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Teams will be dynamically populated via JavaScript -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SCHEDULE & MATCHES SECTION -->
+    <section id="schedule" class="py-20 bg-cyber-card/30 border-t border-cyber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-cyber-cyan font-rajdhani font-bold text-sm tracking-widest uppercase">Match Timeline</span>
+                <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                    Grand Finals <span class="text-cyber-neon">Schedule</span>
+                </h2>
+                <p class="text-gray-400 text-sm mt-2">6 Battle Royale Matches per day across 5 iconic maps</p>
+            </div>
+
+            <!-- Schedule Day Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-10 font-orbitron text-xs sm:text-sm">
+                <button onclick="switchScheduleDay(1)" id="dayBtn1" class="day-tab-btn px-5 py-3 rounded-lg border border-cyber-neon bg-cyber-neon text-cyber-dark font-bold transition-all">
+                    Points Rush (Day 1) — Sep 24
+                </button>
+                <button onclick="switchScheduleDay(2)" id="dayBtn2" class="day-tab-btn px-5 py-3 rounded-lg border border-cyber-border bg-cyber-card text-gray-300 hover:text-white font-bold transition-all">
+                    Points Rush (Day 2) — Sep 25
+                </button>
+                <button onclick="switchScheduleDay(3)" id="dayBtn3" class="day-tab-btn px-5 py-3 rounded-lg border border-cyber-border bg-cyber-card text-gray-300 hover:text-white font-bold transition-all">
+                    Grand Finals (Day 1) — Sep 26
+                </button>
+                <button onclick="switchScheduleDay(4)" id="dayBtn4" class="day-tab-btn px-5 py-3 rounded-lg border border-cyber-border bg-cyber-card text-gray-300 hover:text-white font-bold transition-all">
+                    Grand Finals (Day 2) — Sep 27
+                </button>
+            </div>
+
+            <!-- Matches List Container -->
+            <div id="matchesContainer" class="space-y-4">
+                <!-- Match Cards populated via Javascript -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LEADERBOARD SECTION -->
+    <section id="leaderboard" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <span class="text-cyber-gold font-rajdhani font-bold text-sm tracking-widest uppercase">Live Standings</span>
+                    <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                        Points Rush <span class="text-cyber-gold">Leaderboard</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-2">Simulated live placement and head-start bonus points prior to Sept 26 Grand Finals</p>
+                </div>
+
+                <!-- Sort Control Buttons -->
+                <div class="flex items-center gap-2 font-orbitron text-xs">
+                    <span class="text-gray-400 uppercase mr-2">Sort By:</span>
+                    <button onclick="sortTable('total')" class="px-3 py-1.5 rounded bg-cyber-cyan text-cyber-dark font-bold">Total Points</button>
+                    <button onclick="sortTable('kills')" class="px-3 py-1.5 rounded bg-cyber-card border border-cyber-border text-gray-300 hover:text-white">Kills</button>
+                    <button onclick="sortTable('booyahs')" class="px-3 py-1.5 rounded bg-cyber-card border border-cyber-border text-gray-300 hover:text-white">Booyahs</button>
+                </div>
+            </div>
+
+            <!-- Standings Table Container -->
+            <div class="cyber-card rounded-2xl overflow-hidden border border-cyber-border">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-sans">
+                        <thead class="bg-cyber-dark/90 font-orbitron text-xs text-cyber-cyan uppercase tracking-wider border-b border-cyber-border">
+                            <tr>
+                                <th class="py-4 px-6">Rank</th>
+                                <th class="py-4 px-6">Team</th>
+                                <th class="py-4 px-6 text-center">Matches</th>
+                                <th class="py-4 px-6 text-center">Booyahs 🏆</th>
+                                <th class="py-4 px-6 text-center">Kill Points</th>
+                                <th class="py-4 px-6 text-center">Placement Pts</th>
+                                <th class="py-4 px-6 text-center text-cyber-neon">Head-Start Pts</th>
+                                <th class="py-4 px-6 text-right text-cyber-gold">Total Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody" class="divide-y divide-cyber-border/50 text-sm font-medium">
+                            <!-- Populated via Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRIZE POOL BREAKDOWN SECTION -->
+    <section id="prizes" class="py-20 bg-cyber-card/40 border-y border-cyber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyber-gold font-rajdhani font-bold text-sm tracking-widest uppercase">Rewards & Honors</span>
+                <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                    ₹1 Crore <span class="text-cyber-gold">Prize Pool</span>
+                </h2>
+                <p class="text-gray-400 text-sm mt-2">Comprehensive reward allocation for teams and individual achievements</p>
+            </div>
+
+            <!-- Top 3 Champion Podium Visual Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-end">
+                
+                <!-- 2nd Place -->
+                <div class="cyber-card p-6 rounded-2xl border-t-4 border-t-gray-300 text-center order-2 md:order-1">
+                    <div class="w-16 h-16 bg-gray-400/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-400/30">
+                        <i class="fa-solid fa-trophy text-3xl text-gray-300"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-gray-400/20 text-gray-300 rounded font-orbitron text-xs font-bold uppercase">2nd Place</span>
+                    <h3 class="text-3xl font-orbitron font-extrabold text-white my-3">₹20,000,00</h3>
+                    <p class="text-xs text-gray-400 font-sans">₹20 Lakhs Prize Money + Silver Medal</p>
+                </div>
+
+                <!-- 1st Place (Winner) -->
+                <div class="cyber-card p-8 rounded-2xl border-2 border-cyber-gold shadow-neon-gold text-center relative order-1 md:order-2 transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyber-gold text-cyber-dark px-4 py-1 rounded-full font-orbitron font-extrabold text-xs uppercase tracking-wider">
+                        CHAMPIONS
+                    </div>
+                    <div class="w-20 h-20 bg-cyber-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyber-gold/50">
+                        <i class="fa-solid fa-crown text-4xl text-cyber-gold"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-cyber-gold/20 text-cyber-gold rounded font-orbitron text-xs font-bold uppercase">1st Place</span>
+                    <h3 class="text-4xl font-orbitron font-black text-cyber-gold my-3">₹40,000,00</h3>
+                    <p class="text-sm text-gray-200 font-semibold font-sans">₹40 Lakhs + FFMIC Fall Trophy + Direct Seed to World Series</p>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="cyber-card p-6 rounded-2xl border-t-4 border-t-amber-700 text-center order-3">
+                    <div class="w-16 h-16 bg-amber-700/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-700/30">
+                        <i class="fa-solid fa-trophy text-3xl text-amber-600"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-700/20 text-amber-500 rounded font-orbitron text-xs font-bold uppercase">3rd Place</span>
+                    <h3 class="text-3xl font-orbitron font-extrabold text-white my-3">₹12,000,00</h3>
+                    <p class="text-xs text-gray-400 font-sans">₹12 Lakhs Prize Money + Bronze Medal</p>
+                </div>
+
+            </div>
+
+            <!-- Tiered Breakdown Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center font-orbitron">
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <p class="text-[10px] text-gray-400 uppercase">4th Place</p>
+                    <p class="text-lg font-bold text-white mt-1">₹8 Lakhs</p>
+                </div>
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <p class="text-[10px] text-gray-400 uppercase">5th Place</p>
+                    <p class="text-lg font-bold text-white mt-1">₹5 Lakhs</p>
+                </div>
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <p class="text-[10px] text-gray-400 uppercase">6th Place</p>
+                    <p class="text-lg font-bold text-white mt-1">₹4 Lakhs</p>
+                </div>
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <p class="text-[10px] text-gray-400 uppercase">7th - 8th Place</p>
+                    <p class="text-lg font-bold text-white mt-1">₹2.5 Lakhs</p>
+                </div>
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <p class="text-[10px] text-gray-400 uppercase">9th - 12th Place</p>
+                    <p class="text-lg font-bold text-white mt-1">₹1.5 Lakhs</p>
+                </div>
+                <div class="bg-cyber-dark p-4 rounded-xl border border-cyber-neon/50">
+                    <p class="text-[10px] text-cyber-neon uppercase">MVP Award</p>
+                    <p class="text-lg font-bold text-cyber-neon mt-1">₹5 Lakhs</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LIVE BROADCAST STREAM HUB SECTION -->
+    <section id="live" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <span class="text-red-500 font-rajdhani font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span> Official Stream Hub
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-orbitron font-extrabold text-white uppercase tracking-tight mt-1">
+                        Watch <span class="text-cyber-cyan">Grand Finals</span> Live
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-1">Noida Indoor Stadium Stage Broadcast • Hindi & English Commentary</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-xs bg-cyber-card border border-cyber-border text-gray-300 px-3 py-1.5 rounded-lg font-mono">
+                        <i class="fa-solid fa-eye text-cyber-neon mr-1.5"></i> 248.5K Viewers
+                    </span>
+                </div>
+            </div>
+
+            <!-- Broadcast Player & Chat Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Video Container (2 Columns) -->
+                <div class="lg:col-span-2 cyber-card rounded-2xl overflow-hidden border border-cyber-border flex flex-col">
+                    <div class="relative w-full aspect-video bg-black flex items-center justify-center group">
+                        <!-- Simulated Live Video Thumbnail/Poster -->
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center opacity-40"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-dark via-transparent to-transparent"></div>
+                        
+                        <!-- Overlay Play Trigger -->
+                        <div class="relative z-10 text-center p-6">
+                            <button onclick="startStreamSimulation()" class="w-20 h-20 rounded-full bg-cyber-neon text-cyber-dark flex items-center justify-center text-3xl font-black hover:scale-110 shadow-neon-green transition-transform mx-auto mb-4">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                            <h4 class="font-orbitron font-bold text-xl text-white">TEZ Free Fire MAX India Cup 2026 — Day Stream</h4>
+                            <p class="text-xs text-cyber-cyan mt-1">Click to launch interactive player view</p>
+                        </div>
+
+                        <div class="absolute top-4 left-4 bg-red-600 text-white font-orbitron font-bold text-xs px-3 py-1 rounded clip-tag uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-broadcast-tower"></i> LIVE BROADCAST
+                        </div>
+                    </div>
+
+                    <!-- Stream Controls Bar -->
+                    <div class="p-4 bg-cyber-dark flex flex-wrap items-center justify-betwe
+                      
